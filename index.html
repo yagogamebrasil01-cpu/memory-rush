@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#667eea">
+    <meta name="description" content="Memory Rush - Jogo da Memória clássico. Teste sua memória e divirta-se!">
+    <meta name="keywords" content="memory rush, jogo da memória, memory game">
+    <meta name="author" content="Memory Rush Studio">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <title>Memory Rush 🧠</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 Memory Rush</h1>
+            <p class="subtitle">Teste sua memória e divirta-se!</p>
+        </header>
+
+        <div class="menu" id="menu">
+            <h2>Como Jogar</h2>
+            <ul class="instructions">
+                <li>1. Clique nas cartas para virá-las</li>
+                <li>2. Encontre os pares iguais</li>
+                <li>3. Complete antes do tempo acabar!</li>
+            </ul>
+            
+            <h3>Escolha a dificuldade:</h3>
+            <div class="difficulty-buttons">
+                <button class="btn-difficulty easy" onclick="startGame('easy')">
+                    🟢 Fácil<br>
+                    <small>4x3 (12 cartas)</small>
+                </button>
+                <button class="btn-difficulty medium" onclick="startGame('medium')">
+                    🟡 Médio<br>
+                    <small>4x4 (16 cartas)</small>
+                </button>
+                <button class="btn-difficulty hard" onclick="startGame('hard')">
+                    🔴 Difícil<br>
+                    <small>6x4 (24 cartas)</small>
+                </button>
+            </div>
+        </div>
+
+        <div class="game-container" id="gameContainer" style="display: none;">
+            <div class="game-info">
+                <div class="info-item">
+                    <span class="label">⏱️ Tempo:</span>
+                    <span class="value" id="timer">00:00</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">🎯 Movimentos:</span>
+                    <span class="value" id="moves">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">⭐ Pares:</span>
+                    <span class="value" id="pairs">0/6</span>
+                </div>
+            </div>
+
+            <div class="game-board" id="gameBoard"></div>
+
+            <div class="game-controls">
+                <button class="btn-restart" onclick="restartGame()">🔄 Reiniciar</button>
+                <button class="btn-menu" onclick="backToMenu()">📋 Menu</button>
+            </div>
+        </div>
+
+        <div class="modal" id="victoryModal" style="display: none;">
+            <div class="modal-content">
+                <h2>🎉 Parabéns!</h2>
+                <p>Você completou o Memory Rush!</p>
+                <div class="stats">
+                    <p>⏱️ Tempo: <span id="finalTime"></span></p>
+                    <p>🎯 Movimentos: <span id="finalMoves"></span></p>
+                </div>
+                <button class="btn-play-again" onclick="backToMenu()">Jogar Novamente</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then((registration) => {
+                        console.log('Memory Rush: ServiceWorker registrado');
+                    })
+                    .catch((error) => {
+                        console.log('Memory Rush: Erro no ServiceWorker:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+  </html>
